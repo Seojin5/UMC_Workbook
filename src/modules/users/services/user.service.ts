@@ -2,6 +2,7 @@ import { UserSignUpRequest } from "../dtos/user.dto.js"; //인터페이스 가�
 import { 
     responseFromUser,
     bodyToUser } from "../dtos/user.dto.js";
+import bcrypt from "bcrypt";
 import {
   addUser,
   getUser,
@@ -12,8 +13,11 @@ import {
 export const userSignUp = async (data: UserSignUpRequest) => {
     const converted = bodyToUser(data);
 
+    const hashedPassword = await bcrypt.hash(converted.password, 10);
+
     const joinUserId = await addUser({
         email: converted.email,
+        password: hashedPassword,
         name: converted.name,
         gender: converted.gender,
         birth: converted.birth,

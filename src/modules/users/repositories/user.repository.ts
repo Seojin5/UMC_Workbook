@@ -22,6 +22,7 @@ export const addUser = async (data: any): Promise<number | null> => {
       `INSERT INTO user (email, name, gender, birth, address, detail_address, phone_number) VALUES (?, ?, ?, ?, ?, ?, ?);`,
       [
         data.email,
+        data.password,
         data.name,
         data.gender,
         data.birth,
